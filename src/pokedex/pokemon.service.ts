@@ -1,3 +1,4 @@
+import { PaginationDto } from './../common/dto/pagination.dto';
 import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CreatePokemonDto, UpdatePokemonDto } from './dto';
 import { isValidObjectId, Model } from 'mongoose';
@@ -32,8 +33,14 @@ export class PokemonService {
     }
   }
 
-  findAll() {
-    return `This action returns all pokedex`;
+  findAll(paginationDto:PaginationDto) {
+    const {limit=10, offset=0} = paginationDto;
+    return this.pokemonModel.find()
+      .limit(limit)
+      .skip(offset)
+      .sort({ no: 1 })
+      .select('-__v');
+
   }
 
   async findOne(term: string) {
