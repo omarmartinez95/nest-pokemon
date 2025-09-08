@@ -5,12 +5,14 @@ import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
 import { ConfigModule } from '@nestjs/config';
 import { EnvConfiguration } from './config/app.config';
+import { joiValidationSchema } from './config/joi.validation';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [EnvConfiguration],
-      isGlobal: true,
+      // isGlobal: true,
+      validationSchema: joiValidationSchema
     }),
     PokedexModule,
     MongooseModule.forRoot(process.env.MONGODB),
