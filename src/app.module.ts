@@ -15,7 +15,9 @@ import { joiValidationSchema } from './config/joi.validation';
       validationSchema: joiValidationSchema
     }),
     PokedexModule,
-    MongooseModule.forRoot(process.env.MONGODB),
+    MongooseModule.forRoot(process.env.MONGODB,{
+      dbName: 'pokemonsdb'
+    }),
     CommonModule,
     SeedModule
   ],
